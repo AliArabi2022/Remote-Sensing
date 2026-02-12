@@ -29,13 +29,13 @@ function filtered = speckle_filter_sar(amplitude, filter_type, window_size)
     switch lower(filter_type)
         case 'lee'
             % Lee filter
-            Cu = 0.25; % Coefficient of variation
+            coeff_var = 0.25; % Coefficient of variation
             for i = pad+1:rows-pad
                 for j = pad+1:cols-pad
                     window = amplitude(i-pad:i+pad, j-pad:j+pad);
                     mean_w = mean(window(:));
                     var_w = var(window(:));
-                    W = var_w / (mean_w^2 * Cu^2 + var_w);
+                    W = var_w / (mean_w^2 * coeff_var^2 + var_w);
                     filtered(i,j) = mean_w + W * (amplitude(i,j) - mean_w);
                 end
             end
@@ -59,14 +59,14 @@ function filtered = speckle_filter_sar(amplitude, filter_type, window_size)
             
         case 'kuan'
             % Kuan filter
-            Cu = 0.25;
+            coeff_var = 0.25;
             for i = pad+1:rows-pad
                 for j = pad+1:cols-pad
                     window = amplitude(i-pad:i+pad, j-pad:j+pad);
                     mean_w = mean(window(:));
                     var_w = var(window(:));
                     Ci = sqrt(var_w) / mean_w;
-                    W = (1 - Cu^2/Ci^2) / (1 + Cu^2);
+                    W = (1 - coeff_var^2/Ci^2) / (1 + coeff_var^2);
                     W = max(0, W);
                     filtered(i,j) = mean_w + W * (amplitude(i,j) - mean_w);
                 end

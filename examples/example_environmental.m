@@ -111,7 +111,7 @@ combined = zeros(rows, cols, 3);
 combined(:,:,1) = mat2gray(image_t2(:,:,3));  % Base: Red band
 combined(:,:,2) = mat2gray(image_t2(:,:,2));  % Base: Green band
 combined(:,:,3) = mat2gray(image_t2(:,:,1));  % Base: Blue band
-combined(:,:,1) = combined(:,:,1) + double(deforest_results.deforestation_mask);
+combined(:,:,1) = min(1, combined(:,:,1) + 0.5*double(deforest_results.deforestation_mask));
 imshow(combined);
 title('RGB with Deforestation Overlay');
 

@@ -55,8 +55,9 @@ function data = simulate_multispectral_data(rows, cols, num_bands, varargin)
     if num_bands ~= size(signatures, 2)
         signatures_new = zeros(num_classes, num_bands);
         for c = 1:num_classes
-            signatures_new(c,:) = interp1(linspace(1, num_bands, size(signatures,2)), ...
-                                          signatures(c,:), 1:num_bands, 'pchip');
+            signatures_new(c,:) = interp1(1:size(signatures,2), ...
+                                          signatures(c,:), ...
+                                          linspace(1, size(signatures,2), num_bands), 'pchip');
         end
         signatures = signatures_new;
     end

@@ -21,9 +21,18 @@ function save_data(data, filename, format)
         case 'mat'
             save(filename, 'data');
         case {'tif', 'tiff'}
+            % Normalize and convert to uint8 for image writing
+            if isfloat(data)
+                data = uint8(mat2gray(data) * 255);
+            end
             imwrite(data, filename);
         case 'csv'
-            writetable(data, filename);
+            % Convert to table or matrix as appropriate
+            if istable(data)
+                writetable(data, filename);
+            else
+                writematrix(data, filename);
+            end
         otherwise
             error('Unsupported format: %s', format);
     end

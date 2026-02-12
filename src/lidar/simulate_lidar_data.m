@@ -56,8 +56,17 @@ function data = simulate_lidar_data(rows, cols, varargin)
             tree_height = 5 + 10*rand();
             tree_radius = 2 + 3*rand();
             
-            tree_mask = ((X-tx).^2 + (Y-ty).^2) <= tree_radius^2;
-            elevation(tree_mask) = elevation(tree_mask) + tree_height;
+            % Use bounding box for efficiency
+            x_min = max(1, round(tx - tree_radius));
+            x_max = min(cols, round(tx + tree_radius));
+            y_min = max(1, round(ty - tree_radius));
+            y_max = min(rows, round(ty + tree_radius));
+            
+            % Apply only within bounding box
+            [X_local, Y_local] = meshgrid(x_min:x_max, y_min:y_max);
+            tree_mask = ((X_local-tx).^2 + (Y_local-ty).^2) <= tree_radius^2;
+            elevation(y_min:y_max, x_min:x_max) = ...
+                elevation(y_min:y_max, x_min:x_max) + tree_mask * tree_height;
         end
     end
     

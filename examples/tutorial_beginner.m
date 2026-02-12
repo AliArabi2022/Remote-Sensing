@@ -163,11 +163,10 @@ axis image;
 subplot(1,3,3);
 % Create overlay
 overlay = label2rgb(classified, 'jet', 'k', 'shuffle');
-h = imshow(overlay);
-set(h, 'AlphaData', 0.5);  % Semi-transparent
+h1 = imshow(rgb);
 hold on;
-imshow(rgb);
-alpha(0.5);
+h2 = imshow(overlay);
+set(h2, 'AlphaData', 0.5);  % Semi-transparent
 title('Overlay on Original');
 
 fprintf('\nFigure 3 created!\n');

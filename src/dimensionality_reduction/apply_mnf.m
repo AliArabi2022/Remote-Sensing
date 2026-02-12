@@ -26,7 +26,9 @@ function [reduced, noise] = apply_mnf(data, num_components)
         band = data(:,:,b);
         % Horizontal differences
         diff_h = band(:, 2:end) - band(:, 1:end-1);
-        noise_samples = [noise_samples; diff_h(:)];
+        % Vertical differences
+        diff_v = band(2:end, :) - band(1:end-1, :);
+        noise_samples = [noise_samples; diff_h(:); diff_v(:)];
     end
     noise_cov = cov(noise_samples) / 2; % Divide by 2 for shift difference
     
