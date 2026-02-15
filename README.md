@@ -84,9 +84,13 @@ remote-sensing-toolbox/
 - │   ├── dimensionality_reduction/
 - │   ├── classification_analysis/
 - │   ├── applications/           # vegetation, soil moisture examples
-- │   └── rf_gnssr/               # GNSS-R loading, waveform separation, coherence detection
-- │       ├── coherence_detection_functions/
-- │       └── coherence_comparison_real_data.m
+- │   └── rf_passive_radar/               # GNSS-R loading, waveform separation, coherence detection
+- │          ├── project/
+- │          └── DateTime.m
+- │          └── DirectVsReflect.m
+- │          └── load_data.m
+- │          └── load_data_INIT.m
+- │          └── test.m
 - └── docs/                       # References, articles, notes
 
 
